@@ -14,8 +14,6 @@ jobs:
       - checkout
       - run: npm install
       - run: node --version
-    steps:
-      - checkout
       - run:
       # Our primary container isn't MYSQL so run a sleep command until it's ready.
           name: Waiting for MySQL to be ready
