@@ -15,8 +15,9 @@ jobs:
       - run:
           name: Install MySQL CLi
           command: |
-            mysql -uroot -p$MYSQL_ROOT_PASSWORD --socket=/var/run/mysqld/mysqld.sock -e "grant all privileges on *.* to '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';"
+            
             sudo apt-get install default-mysql-client
+            mysql -uroot -p$MYSQL_ROOT_PASSWORD --socket=/var/run/mysqld/mysqld.sock -e "grant all privileges on *.* to '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';"
             
 workflows:
   version: 2
