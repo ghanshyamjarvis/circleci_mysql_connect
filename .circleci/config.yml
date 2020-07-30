@@ -9,9 +9,12 @@ jobs:
             MYSQL_DATABASE: test
             MYSQL_USER: user
             MYSQL_PASSWORD: password
-            
+            MYSQL_HOST: 127.0.0.1
+            MYSQL_PORT: 3306 
     steps:
       - checkout
+      - run: ALTER USER 'user'@'${MYSQL_ROOT_HOST}' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}' ;
+			- run: GRANT ALL ON *.* TO 'root'@'${MYSQL_ROOT_HOST}' WITH GRANT OPTION 
       - run: npm install
       - run: node --version
       - run: sudo apt-get install default-mysql-client 
