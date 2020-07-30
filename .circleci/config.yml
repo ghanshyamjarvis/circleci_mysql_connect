@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: sudo apt-get install mysql-server
+      - run: sudo mysql_secure_installation utility
       - run: mysql --version
       - run: node --version
 workflows:
