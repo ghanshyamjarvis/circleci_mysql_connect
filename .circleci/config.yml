@@ -2,16 +2,16 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1-node-browsers
-
+    - image: circleci/php:7.1-node-browsers
+    - image: tkuchiki/delayed-mysql
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_DATABASE: circle_test
     steps:
       - checkout
-      - run: sudo apt-get update
-      - run: sudo apt-get install mysql-server
-      - run: mysql_secure_installation
-      - run:
-          name: Mysql database
-          command: mysql -h 127.0.0.1 -u root -e "create database mate;"
+      - run: sudo apt-get install mysql-client --allow-unauthenticated
+      - run: mysql -u root -e "create database production_flow" --protocol=tcp
      
 workflows:
   build_and_test:
