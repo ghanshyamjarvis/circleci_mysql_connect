@@ -2,21 +2,29 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:14.0.0
-      - image: circleci/mysql:5.6.40
+      - image: circleci/php:7.1-node-browsers
         environment:
-            MYSQL_ROOT_PASSWORD: password
-            MYSQL_DATABASE: test
-            MYSQL_USER: user
-            MYSQL_PASSWORD: password
-            MYSQL_HOST: '127.0.0.1'
-            MYSQL_PORT: '3306'
-            
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: mate
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
+      - image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+
+    working_directory: ~/laravel
+
     steps:
       - checkout
-      - run: npm install
-      - run: apt-get update && apt-get install -y mysql-client 
-      - run: node --version
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
+      - run: sudo docker-php-ext-install zip
+      - run: sudo composer self-update
+      - run:
+          name: Mysql database
+          command: mysql  -h 127.0.0.1 -u root -e "create database mate;"
      
 workflows:
   build_and_test:
