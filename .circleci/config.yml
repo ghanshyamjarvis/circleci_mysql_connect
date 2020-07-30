@@ -26,7 +26,8 @@ jobs:
       - run:
           name: Install MySQL CLi
           command: |
-            mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e "ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
+            mysql -uroot -p$MYSQL_ROOT_PASSWORD --socket=/var/run/mysqld/mysqld.sock -e "grant all privileges on *.* to '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';"
+
             sudo apt-get install mysql-client
             
 workflows:
