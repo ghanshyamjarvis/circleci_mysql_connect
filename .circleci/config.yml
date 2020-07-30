@@ -14,6 +14,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
+      - run: apt-get update && apt-get install -y mysql-client 
       - run: node --version
       - run: sudo apt-get install default-mysql-client 
 workflows:
