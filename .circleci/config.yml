@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.0.0
-      - image: circleci/mysql:8.0.21
+      - image: circleci/mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: test
@@ -16,7 +16,7 @@ jobs:
       - run: npm install
       - run: apt-get update && apt-get install -y mysql-client 
       - run: node --version
-      - run: sudo apt-get install default-mysql-client 
+     
 workflows:
   build_and_test:
     jobs:
