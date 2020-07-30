@@ -18,9 +18,9 @@ jobs:
           command: |
               npm install
       - run:
-        name: Install things we need
+          name: Install things we need
           command: |
-            npm install
+            
             sudo apt-get update
             sudo apt-get install -y libzip-dev
             sudo apt-get install -y zlib1g-dev libicu-dev g++
