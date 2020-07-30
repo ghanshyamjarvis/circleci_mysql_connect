@@ -4,12 +4,12 @@ jobs:
     docker:
      
       - image: cimg/node:14.0.0
-      - image: circleci/mysql:8.0.4
+     
       
     steps:
       - checkout
       - run: npm install
-      - run: sudo apt-get install default-mysql-client
+      - run: sudo apt-get install mysql-server
       - run: mysql --version
       - run: node --version
 workflows:
