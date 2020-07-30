@@ -3,10 +3,17 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.0.0
-      - image: circleci/mysql:5.7
+      - image: circleci/mysql:5.7.31
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: test
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        ports:
+            - 8888:3306
     steps:
       - checkout
-      - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e "CREATE USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
+      - run: mysql -h 127.0.0.1 --port 8888 -u root -ppassword -e "ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
       - run: npm install
       - run: node --version
       - run: sudo apt-get install default-mysql-client 
