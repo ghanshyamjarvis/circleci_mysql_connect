@@ -3,10 +3,43 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.0.0
+      - image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_HOST: 127.0.0.1
+          
     steps:
       - checkout
-      - run: npm install
-     
+      
+      - run:
+          name: npm
+          command: |
+              npm install
+      - run:
+        name: Install things we need
+          command: |
+            npm install
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev
+            sudo apt-get install -y zlib1g-dev libicu-dev g++
+            sudo apt-get install mysql-client
+            sudo apt-get -y install mysql-server
+       - run:
+          name: Fix MySQL socket config
+          command: |
+            sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
+       - run:
+          name: Start database server
+          command: |
+            sudo service mysql start
+            sleep 2
+            ps aux | grep mysql
+      - run:
+          name: Create non-admin user
+          command: |
+            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"     
 workflows:
   build_and_test:
     jobs:
