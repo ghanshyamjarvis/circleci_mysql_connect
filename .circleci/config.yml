@@ -3,18 +3,12 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
-        environment:
-          DB_HOST: 127.0.0.1
-      - image: circleci/mysql:5.6.40
-        command: [--default-authentication-plugin=mysql_native_password]
-        environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          MYSQL_ROOT_HOST: '%'
-          MYSQL_DATABASE: app_test
-          MYSQL_USER: root
 
     steps:
       - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get install mysql-server
+      - run: mysql_secure_installation
       - run:
           name: Mysql database
           command: mysql -h 127.0.0.1 -u root -e "create database mate;"
