@@ -12,7 +12,6 @@ jobs:
           
     steps:
       - checkout
-      
       - run:
           name: npm
           command: |
@@ -20,7 +19,6 @@ jobs:
       - run:
           name: Install things we need
           command: |
-            
             sudo apt-get update
             sudo apt-get install -y libzip-dev
             sudo apt-get install -y zlib1g-dev libicu-dev g++
