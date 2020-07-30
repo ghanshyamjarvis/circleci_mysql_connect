@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-apache-node-browsers # The primary container where steps are run
-      - image: circleci/mysql:5.7
+      - image: circleci/mysql:5.7.31
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: company
@@ -27,7 +27,7 @@ jobs:
           name: Install MySQL CLi
           command: |
             mysql -uroot -ppassword --socket=/var/run/mysqld/mysqld.sock -e "grant all privileges on *.* to '$user'@'%' identified by 'password';"
-            sudo apt-get install default-mysql-client
+            sudo apt get install mysql-client
             
 workflows:
   version: 2
