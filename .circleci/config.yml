@@ -1,25 +1,15 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/mysql:latest
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: company
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-        
+      - image: cimg/node:14.0.0
+      - image: circleci/mysql:8.0.4
     steps:
       - checkout
-      - run:
-          name: Install MySQL CLi
-          command: |
-            
-            sudo apt-get install default-mysql-client
-            mysql -uroot -p$MYSQL_ROOT_PASSWORD --socket=/var/run/mysqld/mysqld.sock -e "grant all privileges on *.* to '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';"
-            
+      - run: npm install
+      - run: node --version
+      - run: sudo apt-get install default-mysql-client 
 workflows:
-  version: 2
-  build-deploy:
+  build_and_test:
     jobs:
-      - build
+      - build 
