@@ -12,10 +12,14 @@ const connection = mysql.createConnection({
   host:'localhost',
   user:'root',
   password:'password',
+  database:'company'
 });
 
- connection.connect()
- console.log('database connected')
+
+connection.connect()
+console.log('database connected' + ' ' +connection.config.database)
+
 connection.end()
 console.log('database connected11')
+
 server.close();

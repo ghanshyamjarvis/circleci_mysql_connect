@@ -1,2 +1,50 @@
-
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:14.0.0
+      - image: mysql:8.0.12
+        command: --default-authentication-plugin=mysql_native_password
+    environment:
+          MYSQL_ROOT_PASSWORD: password
+        #  MYSQL_USER: company #this is optional if require than set it
+          MYSQL_PASSWORD: password #this is optional if require than set it
+    steps:
+    - checkout 
+    - run:
+          name: Install things we need
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev
+            sudo apt-get install -y zlib1g-dev libicu-dev g++
+            sudo apt-get install mysql-client
+            sudo apt-get -y install mysql-server
+    - run:
+          name: Start database server
+          command: |
+            sudo service mysql start
+            sleep 2
+            ps aux | grep mysql
+    - run:
+          name: npm
+          command: |
+            npm install mysql --save
+            npm install express --save
+            npm install
+    - run:
+          name: Create non-admin user
+          command: |
+            sudo mysql -u root -e "CREATE user company IDENTIFIED BY 'password';"
+            sudo mysql -h localhost -u root -ppassword -e "ALTER USER 'company'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
+            sudo mysql -h localhost -u root -ppassword -e "FLUSH PRIVILEGES";
+            mysql --version
+            node --version
             
+    - run:
+          name: database connection
+          command: |
+            node server.js       
+workflows:
+  build_and_test:
+    jobs:
+      - build 
