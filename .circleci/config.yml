@@ -27,14 +27,15 @@ jobs:
             ps aux | grep mysql
     - run:
           name: npm
-          command: npm install
+          command: |
+            npm install mysql --save
+            npm install
     - run:
           name: Create non-admin user
           command: |
             sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';" 
             mysql --version
             node --version
-            node install mysql --save
             node server.js
 workflows:
   build_and_test:
