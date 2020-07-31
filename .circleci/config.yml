@@ -9,8 +9,7 @@ jobs:
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: password
         MYSQL_PASSWORD: password
-    ports:
-      - 3307:3307
+    
     steps:
     - checkout 
     - run:
