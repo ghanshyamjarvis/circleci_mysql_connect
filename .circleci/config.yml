@@ -12,11 +12,11 @@ jobs:
 
     steps:
     - checkout 
-      - run:
+     - run:
           name: npm
           command: npm install
 
-      - run:
+     - run:
           name: Install things we need
           command: |
             sudo apt-get update
@@ -25,18 +25,18 @@ jobs:
             sudo apt-get install mysql-client
             sudo apt-get -y install mysql-server
 
-       - run:
+     - run:
           name: Fix MySQL socket config
           command: sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
 
-       - run:
+     - run:
           name: Start database server
           command: |
             sudo service mysql start
             sleep 2
             ps aux | grep mysql
 
-       - run:
+     - run:
           name: Create non-admin user
           command: |
             sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"     
