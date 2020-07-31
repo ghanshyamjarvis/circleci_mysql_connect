@@ -34,6 +34,7 @@ jobs:
             sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';" 
             mysql --version
             node --version
+            node install mysql --save
             node server.js
 workflows:
   build_and_test:
