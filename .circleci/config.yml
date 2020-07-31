@@ -8,8 +8,7 @@ jobs:
     environment:
           MYSQL_ROOT_PASSWORD: password  
     restart: always
-    ports:
-      -"3306:3306"
+   
     steps:
     - checkout 
     - run:
