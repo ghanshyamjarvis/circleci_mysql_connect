@@ -8,11 +8,10 @@ jobs:
     environment:
         MYSQL_ROOT_PASSWORD: password
         MYSQL_PASSWORD: password
-    
     steps:
     - checkout 
     - run:
-          name: Install things we need
+          name: Installing Mysql and basic library of Mysql
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev
@@ -20,19 +19,17 @@ jobs:
             sudo apt-get install mysql-client
             sudo apt-get -y install mysql-server
     - run:
-          name: Start database server
+          name: Mysql Service Start
           command: |
             sudo service mysql start
             sleep 2
             ps aux | grep mysql
     - run:
-          name: npm
+          name: NPM install for all Modules
           command: |
-            npm install mysql --save
-            npm install express --save
             npm install
     - run:
-          name: Create non-admin user
+          name: Create User and database for connection
           command: |
             sudo mysql -u root -e "CREATE USER user IDENTIFIED BY 'password';"
             sudo mysql -u root -e "FLUSH PRIVILEGES";
@@ -45,7 +42,7 @@ jobs:
             node --version
             
     - run:
-          name: database connection
+          name: node Server Script Database connection Done
           command: |
             node server.js       
 workflows:
