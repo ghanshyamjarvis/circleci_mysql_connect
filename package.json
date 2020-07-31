@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/ghanshyamjarvis/circleci_mysql_connect/issues"
   },
-  "homepage": "https://github.com/ghanshyamjarvis/circleci_mysql_connect#readme"
+  "homepage": "https://github.com/ghanshyamjarvis/circleci_mysql_connect#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
 }
