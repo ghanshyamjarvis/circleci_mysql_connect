@@ -7,7 +7,7 @@ jobs:
         command: --default-authentication-plugin=mysql_native_password
     environment:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_HOST: 127.0.0.1
+          MYSQL_DATABASE: company
          
     steps:
     - checkout 
@@ -34,10 +34,10 @@ jobs:
     - run:
           name: Create non-admin user
           command: |
-            sudo mysql -u root -e "CREATE user company IDENTIFIED BY 'password';"
-            sudo mysql -h localhost -u root -ppassword -e "FLUSH PRIVILEGES";
-            sudo mysql -h localhost -u root -ppassword -e "ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
-            sudo mysql -h localhost -u root -ppassword -e "FLUSH PRIVILEGES";
+            sudo mysql -u root -e "CREATE user user IDENTIFIED BY 'password';"
+            sudo mysql -u root -e "FLUSH PRIVILEGES";
+            sudo mysql -u root -e "ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';"
+            sudo mysql -u root -e "FLUSH PRIVILEGES";
             mysql --version
             node --version
             
