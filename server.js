@@ -9,8 +9,8 @@ const server = app.listen(port, function() {
 });
 
 const connection = mysql.createConnection({
-  host:'localhost',
-  user:'root',
+  host:'127.0.0.1',
+  user:'user',
   password:'password',
 });
 
