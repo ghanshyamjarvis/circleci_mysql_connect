@@ -37,7 +37,7 @@ jobs:
           command: |
             sudo mysql -u root -e "CREATE USER user IDENTIFIED BY 'password';"
             sudo mysql -u root -e "FLUSH PRIVILEGES";
-            sudo mysql -h 127.0.0.1 -p 3306 -u root -ppassword
+            sudo mysql -u root -e "SELECT user FROM mysql.user;"
             mysql --version
             node --version
             
