@@ -1,3 +1,4 @@
+ 
 const mysql = require('mysql');
 const express =require('express');
 const app = express();
@@ -15,10 +16,11 @@ const connection = mysql.createConnection({
   database:'company'
 });
 
+
 connection.connect()
 console.log('database connected' + ' ' +connection.config.database)
 
 connection.end()
 console.log('database connected11')
 
-server.close();
+server.close()
