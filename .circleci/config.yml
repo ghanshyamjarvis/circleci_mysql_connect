@@ -36,7 +36,9 @@ jobs:
     - run:
           name: Create non-admin user
           command: |
-            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"     
+            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';" 
+            mysql --version
+            node --version
 workflows:
   build_and_test:
     jobs:
