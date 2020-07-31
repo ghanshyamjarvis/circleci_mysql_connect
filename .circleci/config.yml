@@ -40,6 +40,7 @@ jobs:
             sudo mysql -u root -e "SELECT user,host,account_locked,password_expired FROM mysql.user;"
             sudo mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'user'@'%';"
             sudo mysql -u root -e "FLUSH PRIVILEGES";
+            sudo mysql -u root -e "show datanbases;"
             mysql --version
             node --version
             
