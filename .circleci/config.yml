@@ -11,7 +11,7 @@ jobs:
      MYSQL_HOST: 127.0.0.1
 
     steps:
-      - checkout 
+    - checkout 
       - run:
           name: npm
           command: npm install
