@@ -7,7 +7,7 @@ jobs:
         command: --default-authentication-plugin=mysql_native_password
     environment:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_USER: test #this is optional if require than set it
+        #  MYSQL_USER: test #this is optional if require than set it
           MYSQL_PASSWORD: password #this is optional if require than set it
     steps:
     - checkout 
@@ -34,7 +34,8 @@ jobs:
     - run:
           name: Create non-admin user
           command: |
-            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';" 
+            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"
+            sudo mysql -h localhost -u root -ppassword -e "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
             mysql --version
             node --version
             node server.js
