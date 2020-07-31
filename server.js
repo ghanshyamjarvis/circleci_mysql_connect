@@ -15,7 +15,6 @@ const connection = mysql.createConnection({
   database:'company'
 });
 
-
 connection.connect()
 console.log('database connected' + ' ' +connection.config.database)
 
