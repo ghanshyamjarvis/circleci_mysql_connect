@@ -36,6 +36,7 @@ jobs:
           command: |
             sudo mysql -u root -e "CREATE user company IDENTIFIED BY 'password';"
             sudo mysql -h localhost -u root -ppassword -e "ALTER USER 'company'@'%' IDENTIFIED WITH mysql_native_password BY 'password';"
+            sudo mysql -h localhost -u root -ppassword -e FLUSH PRIVILEGES;
             mysql --version
             node --version
             node server.js
