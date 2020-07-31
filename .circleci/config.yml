@@ -6,8 +6,8 @@ jobs:
       - image: mysql:8.0.12
         command: --default-authentication-plugin=mysql_native_password
     environment:
-          - MYSQL_ROOT_PASSWORD=password
-          - MYSQL_DATABASE=company
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: company
     steps:
     - checkout 
     - run:
